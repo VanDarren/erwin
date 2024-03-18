@@ -41,7 +41,7 @@ class Home extends BaseController
 		
 	}
 	
-    
+	
     public function aksilogin()
 	{
 		$a=$this->request->getPost('username');
@@ -551,5 +551,16 @@ class Home extends BaseController
 		//  print_r($isi);
 		return redirect()->to('home/data_kantor');
 
+	}
+
+	public function profile()
+	{
+			$model = new M_clean;
+	
+		$where = array('id_user' => session()->get('id'));
+		$data['user'] = $model->getWhere('tb_user', $where);
+		echo view('header');
+		echo view('profile',$data); 
+		echo view('footer');
 	}
 }
