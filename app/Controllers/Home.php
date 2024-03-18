@@ -552,6 +552,196 @@ class Home extends BaseController
 		return redirect()->to('home/data_kantor');
 
 	}
+	public function pembayaran()
+	{
+		if (session()->get('level')>0) {
+		$model = new M_clean();
+		$where=array('id_kost');
+		
+		$data['satu']=$model->getWhere('tb_kost', $where);
+
+		
+
+		echo view ('header');
+		echo view ('menu');
+		echo view('pembayaran', $data);
+		echo view('footer');
+	
+    }else{
+		return redirect()->to('home/login');
+	}
+	}
+
+	public function aksi_pembayaran_kost()
+	{
+		$model = new M_clean();
+		$id_user = session()->get('id_user');
+		$b= $this->request->getPost('durasi');
+		$c= $this->request->getPost('harga');
+		$d= $this->request->getPost('tgl');
+		$e= $this->request->getPost('kota');
+		$f= $this->request->getPost('kecamatan');
+		$g= $this->request->getPost('alamat');
+		$h= $this->request->getPost('waktu');
+
+		// $uploadedFile = $this->request->getFile('foto');
+		// $foto = $uploadedFile->getName();
+
+		$durasi_detik = strtotime($b) - strtotime('00:00:00');
+
+		// Mengonversi waktu mulai menjadi detik
+		$start_detik = strtotime($h);
+	
+		// Menghitung waktu akhir (start + durasi)
+		$end_detik = $start_detik + $durasi_detik;
+	
+		// Mengonversi waktu akhir kembali ke format time
+		$end = date('H:i', $end_detik);
+
+		$isi = array(
+			
+			'id_user' => $id_user,
+			'durasi' => $b,
+			'total_harga' => $c,
+			'tgl' => $d,
+			'lokasi' => $e. ", ". $f. ", ". $g ,
+			'start' => $h,
+			'end' => $end,
+			'menu_tempat' => 'kost',
+			'create_at'=> date('y,m,d')
+				);
+
+		$model->tambah('tb_order', $isi);
+
+		return redirect()->to('Home/menu_clean');
+
+	}
+	public function pembayaran_kantor()
+	{
+		if (session()->get('level')>0) {
+		$model = new M_clean();
+		$where=array('id_kantor');
+		
+		$data['satu']=$model->getWhere('tb_kantor', $where);
+
+		
+
+		echo view ('header');
+		echo view ('menu');
+		echo view('pembayaran_kantor', $data);
+		echo view('footer');
+	
+    }else{
+		return redirect()->to('home/login');
+	}
+	}
+	public function aksi_pembayaran_kantor()
+	{
+		$model = new M_clean();
+		$id_user = session()->get('id_user');
+		$b= $this->request->getPost('durasi');
+		$c= $this->request->getPost('harga');
+		$d= $this->request->getPost('tgl');
+		$e= $this->request->getPost('kota');
+		$f= $this->request->getPost('kecamatan');
+		$g= $this->request->getPost('alamat');
+		$h= $this->request->getPost('waktu');
+
+		// $uploadedFile = $this->request->getFile('foto');
+		// $foto = $uploadedFile->getName();
+
+		$durasi_detik = strtotime($b) - strtotime('00:00:00');
+
+		// Mengonversi waktu mulai menjadi detik
+		$start_detik = strtotime($h);
+	
+		// Menghitung waktu akhir (start + durasi)
+		$end_detik = $start_detik + $durasi_detik;
+	
+		// Mengonversi waktu akhir kembali ke format time
+		$end = date('H:i', $end_detik);
+
+		$isi = array(
+			
+			'id_user' => $id_user,
+			'durasi' => $b,
+			'total_harga' => $c,
+			'tgl' => $d,
+			'lokasi' => $e. ", ". $f. ", ". $g ,
+			'start' => $h,
+			'end' => $end,
+			'menu_tempat' => 'kantor',
+			'create_at'=> date('y,m,d')
+				);
+
+		$model->tambah('tb_order', $isi);
+
+		return redirect()->to('Home/menu_clean');
+
+	}
+	public function pembayaran_rumah()
+	{
+		if (session()->get('level')>0) {
+		$model = new M_clean();
+		$where=array('id_rumah');
+		
+		$data['satu']=$model->getWhere('tb_rumah', $where);
+
+		
+
+		echo view ('header');
+		echo view ('menu');
+		echo view('pembayaran_rumah', $data);
+		echo view('footer');
+	
+    }else{
+		return redirect()->to('home/login');
+	}
+	}
+	public function aksi_pembayaran_rumah()
+	{
+		$model = new M_clean();
+		$id_user = session()->get('id_user');
+		$b= $this->request->getPost('durasi');
+		$c= $this->request->getPost('harga');
+		$d= $this->request->getPost('tgl');
+		$e= $this->request->getPost('kota');
+		$f= $this->request->getPost('kecamatan');
+		$g= $this->request->getPost('alamat');
+		$h= $this->request->getPost('waktu');
+
+		// $uploadedFile = $this->request->getFile('foto');
+		// $foto = $uploadedFile->getName();
+
+		$durasi_detik = strtotime($b) - strtotime('00:00:00');
+
+		// Mengonversi waktu mulai menjadi detik
+		$start_detik = strtotime($h);
+	
+		// Menghitung waktu akhir (start + durasi)
+		$end_detik = $start_detik + $durasi_detik;
+	
+		// Mengonversi waktu akhir kembali ke format time
+		$end = date('H:i', $end_detik);
+
+		$isi = array(
+			
+			'id_user' => $id_user,
+			'durasi' => $b,
+			'total_harga' => $c,
+			'tgl' => $d,
+			'lokasi' => $e. ", ". $f. ", ". $g ,
+			'start' => $h,
+			'end' => $end,
+			'menu_tempat' => 'rumah',
+			'create_at'=> date('y,m,d')
+				);
+
+		$model->tambah('tb_order', $isi);
+
+		return redirect()->to('Home/menu_clean');
+
+	}
 
 	public function profile()
 	{

@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+ <style>
+  input.durasi[type=time]::-webkit-datetime-edit-ampm-field {
+        display: none;
+    }
+ </style>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
@@ -23,4 +28,7 @@
   <link href="<?= base_url('css/nucleo-svg.css')?>" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="<?= base_url('css/corporate-ui-dashboard.css?v=1.0.0')?>" rel="stylesheet" />
+
+
+
 </head>

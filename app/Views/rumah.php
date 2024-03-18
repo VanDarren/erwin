@@ -57,6 +57,9 @@
     /* text-align: center; Menengahkan teks */
     margin-top: 5px; /* Jarak antara tombol dan harga */
   }
+  a .btn-success {
+    width: 100%;
+  }
 </style>
 </head>
 <body>
@@ -76,21 +79,19 @@ foreach ($rumah as $wkwk) {
     $hours = intval($time_components[0]); // Ambil jumlah jam
     $minutes = intval($time_components[1]); // Ambil jumlah menit
 
-    if ($minutes === 0) {
-        $duration = $hours . ' Jam';
-    } else {
-        $decimal_hours = $hours + ($minutes / 60); // Hitung jumlah jam dengan pecahan menit
-        $duration = number_format($decimal_hours, 1) . ' Jam';
-    }
+    // Ubah format durasi menjadi jam dan menit
+    $duration = sprintf('%02d:%02d', $hours, $minutes);
+    
     // Format harga dengan number_format() dan tambahkan label "Rp"
     $formatted_price = 'Rp ' . number_format($wkwk->harga, 0, ',', '.');
     // Tampilkan tombol dengan durasi dalam format jam
     ?>
     <!-- <button class="button" onclick="location.href='<?=base_url('home/'.$no++)?>'"> -->
-    <button class="button" data-price="<?= $wkwk->harga ?>" onclick="buttonClicked(this)">
-        <?= $duration ?> 
-        
+    <button class="button" data-duration="<?= $duration ?>" data-price="<?= $wkwk->harga ?>" onclick="buttonClicked(this)">
+        <?= $duration ?> Jam
+        <!-- Ubah ini menjadi waktu -->
         <?= $formatted_price ?>
+
     </button>
     <?php } ?>
   </div>
@@ -99,7 +100,9 @@ foreach ($rumah as $wkwk) {
   <input type="text" class="form-control" id="total_harga" name="total_harga" readonly value="Rp 0">
   </div>
   <hr>
+  <a href="javascript:void(0);" onclick="proceedToPayment()">
   <button class="btn btn-sm btn-success" id="btn-lanjut">Lanjut</button>
+</a>
   <button class="btn btn-sm btn-danger" id="btn-cancel">Cancel</button>
 </div>
 
@@ -158,11 +161,40 @@ foreach ($rumah as $wkwk) {
     // Lakukan tindakan ketika tombol "Lanjut" ditekan
   });
 
-  // Fungsi untuk menangani klik tombol
+ 
+ // Variabel global untuk menyimpan harga dan durasi yang dipilih
+ var selectedPrice = 0;
+  var selectedDuration = '';
+
+  // Fungsi untuk menangani klik tombol "Lanjut"
+  function proceedToPayment() {
+      // Mengirim nilai harga dan durasi ke halaman pembayaran
+      window.location.href = "<?= base_url('home/pembayaran_rumah') ?>?harga=" + selectedPrice + "&durasi=" + selectedDuration;
+  }
+
+  // Fungsi untuk menangani klik tombol harga
   function buttonClicked(button) {
+    // Mengambil harga dan durasi dari atribut data-price dan data-duration tombol
+    selectedPrice = button.getAttribute('data-price');
+    selectedDuration = button.getAttribute('data-duration'); // Mengambil durasi
+
+    // Mengubah format waktu "1 am" menjadi "1 jam"
+    var timeComponents = selectedDuration.split(' ');
+    var timeValue = parseInt(timeComponents[0]);
+    var timeUnit = timeComponents[1];
+    if (timeUnit === 'am') {
+        selectedDuration = timeValue + ' jam';
+    } else if (timeUnit === 'pm') {
+        selectedDuration = (timeValue + 12) + ' jam'; // Tambah 12 jam jika PM
+    }
+
+    // Menampilkan durasi yang dipilih di input dengan ID 'total_harga'
+    document.getElementById('total_harga').value = "Durasi: " + selectedDuration;
+    
     // Nonaktifkan tombol yang ditekan
     button.disabled = true;
-  }
+}
+
 </script>
 
 </body>

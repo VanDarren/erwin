@@ -172,7 +172,7 @@
                <!-- Dropdown - Profile -->
     <div class="dropdown d-inline">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?php echo base_url('img/'.$user->foto)?>" alt="Profile" class="rounded-circle me-2">
+            <img src="<?php echo base_url('img/')?>" alt="Profile" class="rounded-circle me-2">
         </a>
 <!-- </li> -->
         <ul class="dropdown-menu dropdown-menu-end">
