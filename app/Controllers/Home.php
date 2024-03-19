@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\M_clean;
+use TCPDF;
 
 class Home extends BaseController
 {
@@ -611,6 +612,18 @@ class Home extends BaseController
 			'create_at'=> date('y,m,d')
 				);
 
+		$id_order = $model->tambah('tb_order', $isi);
+
+		$id_order = $model->insertID();
+    // Memastikan bahwa id_order telah ditambahkan
+    if ($id_order) {
+        // Redirect dengan menyertakan id_order
+        return redirect()->to('home/print/' .$id_order);
+    } else {
+        // Handle jika gagal menyimpan data
+        // Misalnya, tampilkan pesan kesalahan atau redirect ke halaman lain
+        return redirect()->to('menu_clean');
+    }
 		$model->tambah('tb_order', $isi);
 
 		return redirect()->to('Home/menu_clean');
@@ -674,6 +687,18 @@ class Home extends BaseController
 			'create_at'=> date('y,m,d')
 				);
 
+		$id_order = $model->tambah('tb_order', $isi);
+
+		$id_order = $model->insertID();
+		// Memastikan bahwa id_order telah ditambahkan
+		if ($id_order) {
+			// Redirect dengan menyertakan id_order
+			return redirect()->to('home/print/' .$id_order);
+		} else {
+			// Handle jika gagal menyimpan data
+			// Misalnya, tampilkan pesan kesalahan atau redirect ke halaman lain
+		}	
+			
 		$model->tambah('tb_order', $isi);
 
 		return redirect()->to('Home/menu_clean');
@@ -737,6 +762,18 @@ class Home extends BaseController
 			'create_at'=> date('y,m,d')
 				);
 
+		$id_order = $model->tambah('tb_order', $isi);
+
+		$id_order = $model->insertID();
+		// Memastikan bahwa id_order telah ditambahkan
+		if ($id_order) {
+			// Redirect dengan menyertakan id_order
+			return redirect()->to('home/print/' .$id_order);
+		} else {
+			// Handle jika gagal menyimpan data
+			// Misalnya, tampilkan pesan kesalahan atau redirect ke halaman lain
+		}	
+
 		$model->tambah('tb_order', $isi);
 
 		return redirect()->to('Home/menu_clean');
@@ -753,4 +790,33 @@ class Home extends BaseController
 		echo view('profile',$data); 
 		echo view('footer');
 	}
+	public function print($id_order)
+{
+    require_once FCPATH . 'tcpdf/tcpdf.php';
+    $model = new M_Clean();
+    
+    // Mengambil data tb_order berdasarkan id_order
+    $data['satu'] = $model->getWhere('tb_order', array('id_order' => $id_order));
+
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    // Set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('Your Name');
+    $pdf->SetTitle('Your Title');
+    $pdf->SetSubject('Your Subject');
+    $pdf->SetKeywords('Your Keywords');
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    // Add a page
+    $pdf->AddPage();
+
+    // Set some content to print
+    $html = view('print', $data); // Ganti 'your_pdf_view' dengan nama view Anda
+    $pdf->writeHTML($html, true, false, true, false, '');
+    
+    // Output PDF ke browser
+    $pdf->Output('nota.pdf', 'D'); // 'D' untuk langsung mengunduh
+
+    // Hentikan eksekusi lebih lanjut
+    exit();
+}
 }
