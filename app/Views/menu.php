@@ -22,7 +22,37 @@
           <span>Order</span>
         </a>
       </li><!-- End Dashboard Nav -->
+      <?php
+      if (session()->get('level') == 2){
+      ?>
+      <li class="nav-item">
+        <a class="nav-link " href="<?=base_url('home/data_order')?>">
+          <i class="fas fa-stream"></i>
+          <span>Data Order</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <?php 
+      } else {
 
+      }
+      ?>
+      <?php
+      if (session()->get('level') == 3){
+      ?>
+      <li class="nav-item">
+        <a class="nav-link " href="<?=base_url('home/history_order')?>">
+          <i class="far fa-clock"></i>
+          <span>History Order</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <?php 
+      } else {
+
+      }
+      ?>
+<?php
+      if (session()->get('level') == 2){
+      ?>
 <li class="nav-item mt-2">
           <div class="d-flex align-items-center nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="ms-2" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -51,6 +81,11 @@
             <span class="nav-link-text ms-1">Data Kantor</span>
           </a>
         </li>
+        <?php 
+      } else {
+
+      }
+      ?>
         <!-- <li class="nav-item">
           <a class="nav-link  " href="../pages/tables.html">
             <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
@@ -112,7 +147,7 @@
           </div>
         </li>
         <li class="nav-item border-start my-0 pt-2">
-          <a class="nav-link position-relative ms-0 ps-2 py-2 " href="<?=base_url('home/profile')?>">
+          <a class="nav-link position-relative ms-0 ps-2 py-2 " href="<?= base_url('home/profile/')?>">
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
@@ -177,7 +212,7 @@
 <!-- </li> -->
         <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#">My Profile</a></li>
-            <li><a class="dropdown-item" href="#">Log Out</a></li>
+            <li><a class="dropdown-item" href="<?php echo base_url('home/logout')?>">Log Out</a></li>
         </ul>
     </div>
 </li>

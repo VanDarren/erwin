@@ -6,6 +6,11 @@
   input.durasi[type=time]::-webkit-datetime-edit-ampm-field {
         display: none;
     }
+    .navbar>.container{
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+    }
  </style>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

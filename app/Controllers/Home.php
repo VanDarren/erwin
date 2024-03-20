@@ -14,7 +14,9 @@ class Home extends BaseController
 	}
 
 	public function dashboard(){
-		if (session()->get('level')>0) {  
+		if (session()->get('level')>0) {
+		$model = new M_clean();
+		
 
         echo view('header');
 		echo view('menu');
@@ -608,8 +610,9 @@ class Home extends BaseController
 			'lokasi' => $e. ", ". $f. ", ". $g ,
 			'start' => $h,
 			'end' => $end,
-			'menu_tempat' => 'kost',
-			'create_at'=> date('y,m,d')
+			'menu_tempat' => 'Kost',
+			'create_at'=> date('y,m,d'),
+			'waktu' => $d . ' ' . $end,
 				);
 
 		$id_order = $model->tambah('tb_order', $isi);
@@ -683,8 +686,10 @@ class Home extends BaseController
 			'lokasi' => $e. ", ". $f. ", ". $g ,
 			'start' => $h,
 			'end' => $end,
-			'menu_tempat' => 'kantor',
-			'create_at'=> date('y,m,d')
+			'menu_tempat' => 'Kantor',
+			'create_at'=> date('y,m,d'),
+			'waktu' => $d . ' ' . $end,
+		
 				);
 
 		$id_order = $model->tambah('tb_order', $isi);
@@ -758,8 +763,10 @@ class Home extends BaseController
 			'lokasi' => $e. ", ". $f. ", ". $g ,
 			'start' => $h,
 			'end' => $end,
-			'menu_tempat' => 'rumah',
-			'create_at'=> date('y,m,d')
+			'menu_tempat' => 'Rumah',
+			'create_at'=> date('y,m,d'),
+			'waktu' => $d . ' ' . $end,
+			
 				);
 
 		$id_order = $model->tambah('tb_order', $isi);
@@ -782,13 +789,71 @@ class Home extends BaseController
 
 	public function profile()
 	{
-			$model = new M_clean;
-	
+			$model = new M_clean();
+
+            $where = ['id_user' => session()->get('id_user')];
+            $data['satu'] = $model->getWhere('tb_user', $where);
+
+            // Tampilkan view dengan data yang telah diperoleh
+		echo view('header');
+            echo view('profile', $data); 
+            echo view('footer');
+	}
+	public function e_foto()
+{
+	if(session()->get('level') > 0){
+		$model = new M_clean;
 		$where = array('id_user' => session()->get('id'));
 		$data['user'] = $model->getWhere('tb_user', $where);
+
 		echo view('header');
-		echo view('profile',$data); 
+		echo view('menu',$data);
+		echo view('e_foto',$data); 
 		echo view('footer');
+    } else {
+        return redirect()->to('home/login');
+    }
+	}
+	
+	public function aksi_e_profile() {
+		$model = new M_clean();
+		
+		$a= $this->request->getPost('username');
+		$b= $this->request->getPost('no_hp');
+		$c= $this->request->getPost('email');
+
+        $where = ['id_user' => session()->get('id_user')];
+       
+
+		$isi = array(
+		
+			'username' => $a,
+			'no_hp' => $b,
+			'email' => $c,
+		
+				);
+
+		$model->edit('tb_user', $isi, $where);
+
+		return redirect()->to('Home/profile');
+	}
+
+	public function aksi_ubah_foto()
+{
+	if ($this->request->getFile('img')) {
+
+		$file = $this->request->getFile('img');
+		$newFileName = $file->getRandomName(); 
+		$file->move(ROOTPATH . 'public/img', $newFileName);
+
+		$userModel = new M_clean(); 
+		$userId = array('id_user' => session()->get('id_user'));
+		$userData = ['foto' => $newFileName];
+		$userModel->edit('tb_user', $userData,$userId);
+		return redirect()->to('home/profile');
+	} else {
+		return redirect()->to('home/profile');
+}
 	}
 	public function print($id_order)
 {
@@ -796,7 +861,7 @@ class Home extends BaseController
     $model = new M_Clean();
     
     // Mengambil data tb_order berdasarkan id_order
-    $data['satu'] = $model->getWhere('tb_order', array('id_order' => $id_order));
+    $data['wkwk'] = $model->getWhere('tb_order', array('id_order' => $id_order));
 
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
     // Set document information
@@ -815,8 +880,83 @@ class Home extends BaseController
     
     // Output PDF ke browser
     $pdf->Output('nota.pdf', 'D'); // 'D' untuk langsung mengunduh
-
+	
     // Hentikan eksekusi lebih lanjut
     exit();
+
+	
+}
+public function print_do()
+{
+    require_once FCPATH . 'tcpdf/tcpdf.php';
+    $model = new M_Clean();
+    
+    // Mengambil data tb_order berdasarkan id_order
+    $data['wkwk'] = $model->join('tb_order', 'tb_user', 'tb_order.id_user = tb_user.id_user');
+
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    // Set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('Your Name');
+    $pdf->SetTitle('Your Title');
+    $pdf->SetSubject('Your Subject');
+    $pdf->SetKeywords('Your Keywords');
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    // Add a page
+    $pdf->AddPage();
+
+    // Set some content to print
+    $html = view('print_do', $data); // Ganti 'your_pdf_view' dengan nama view Anda
+    $pdf->writeHTML($html, true, false, true, false, '');
+    
+    // Output PDF ke browser
+    $pdf->Output('Laporan Order.pdf', 'D'); // 'D' untuk langsung mengunduh
+	
+    // Hentikan eksekusi lebih lanjut
+    exit();
+
+	
+}
+public function data_order(){
+	if (session()->get('level')>0) {
+		
+    
+    	$model = new M_clean();
+
+		$data['erwin']=$model->tampil('tb_order');
+	
+		echo view('header');
+		echo view('menu');
+		echo view('data_order',$data);
+		echo view('footer');
+
+}else{
+	return redirect()->to('home/login');
 }
 }
+public function history_order(){
+	if (session()->get('level')>0) {
+		
+    
+    	$model = new M_clean();
+		$id_user = session()->get('id_user');
+		$data['erwin']=$model->tampil_sesuai_join('tb_order', 'tb_user', 'tb_order.id_user=tb_user.id_user', $id_user);
+	
+		echo view('header');
+		echo view('menu');
+		echo view('history_order',$data);
+		echo view('footer');
+
+}else{
+	return redirect()->to('home/login');
+}
+}
+
+}
+
+
+
+
+
+
+
