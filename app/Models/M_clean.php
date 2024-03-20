@@ -5,6 +5,13 @@ use CodeIgniter\Model;
 
 Class M_clean extends Model
 { 
+    public function tampil_sesuai_join($table1, $tabel2, $on, $id_user)
+{
+    return $this->db->table($table1)->where('tb_order.id_user', $id_user)
+                     ->join($tabel2,$on,'inner')
+                     ->get()
+                     ->getResult(); 
+}
     public function tampil($tabel){
         return $this->db->table($tabel)
                         ->get()
@@ -101,10 +108,9 @@ Class M_clean extends Model
                         ->insert($isi);
     }
 
-    public function upload($photo)
-    {
-        $imageName = $photo->getName();
-        $photo->move(ROOTPATH . 'public/img', $imageName);
+    public function upload($file){
+        $imageName = $file->getName();
+          $file->move(ROOTPATH . 'public/img', $imageName);
     }
 
     public function cari($tabel,$tabel2,$on,$awal,$akhir, $field){
