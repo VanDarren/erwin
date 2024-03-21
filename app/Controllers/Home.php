@@ -16,10 +16,12 @@ class Home extends BaseController
 	public function dashboard(){
 		if (session()->get('level')>0) {
 		$model = new M_clean();
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
 		
 
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('dashboard');
         echo view('footer');
 
@@ -111,9 +113,11 @@ class Home extends BaseController
 
 	public function menu_clean(){
 		if (session()->get('level')>0) {  
-
+			$model = new M_clean();  
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('menu_clean');
         echo view('footer');
 
@@ -126,8 +130,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['kost']=$model->tampil('tb_kost');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('kost',$data);
         echo view('footer');
 
@@ -140,8 +147,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['rumah']=$model->tampil('tb_rumah');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
         echo view('header');
-		echo view('menu');
+		echo view('menu',$data);
 		echo view('rumah',$data);
         echo view('footer');
 
@@ -154,8 +164,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['kantor']=$model->tampil('tb_kantor');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('kantor',$data);
         echo view('footer');
 
@@ -168,9 +181,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['erwin']=$model->tampil('tb_user');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
         
         echo view('header');
-		echo view('menu');
+		echo view('menu',$data);
 		echo view('data_user',$data);
         echo view('footer');
 	
@@ -183,8 +198,11 @@ class Home extends BaseController
 	{
 		if (session()->get('level')>0) {
 		$model = new M_clean();
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
 		echo view ('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('t_duser');
 		echo view('footer');
 	}else{
@@ -222,12 +240,13 @@ class Home extends BaseController
 		$model = new M_clean();
 		$where=array('id_user'=>$id);
 		
-		$data['satu']=$model->getWhere('tb_user', $where);
-
+		$data['dua']=$model->getWhere('tb_user', $where);
+		$where2 = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where2);
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('e_duser', $data);
 		echo view('footer');
 	
@@ -275,9 +294,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['erwin']=$model->tampil('tb_kost');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
         
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('data_kost',$data);
         echo view('footer');
 	
@@ -290,8 +311,11 @@ class Home extends BaseController
 	{
 		if (session()->get('level')>0) {
 		$model = new M_clean();
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
 		echo view ('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('t_dkost');
 		echo view('footer');
 	}else{
@@ -330,13 +354,14 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 		$model = new M_clean();
 		$where=array('id_kost'=>$id);
-		
-		$data['satu']=$model->getWhere('tb_kost', $where);
+		$where2 = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where2);
+		$data['dua']=$model->getWhere('tb_kost', $where);
 
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('e_dkost', $data);
 		echo view('footer');
 	
@@ -370,9 +395,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['erwin']=$model->tampil('tb_rumah');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
         
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('data_rumah',$data);
         echo view('footer');
 	
@@ -385,8 +412,11 @@ class Home extends BaseController
 	{
 		if (session()->get('level')>0) {
 		$model = new M_clean();
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
 		echo view ('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('t_drumah');
 		echo view('footer');
 	}else{
@@ -425,13 +455,14 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 		$model = new M_clean();
 		$where=array('id_rumah'=>$id);
-		
-		$data['satu']=$model->getWhere('tb_rumah', $where);
+		$where2 = array('id_user' => session()->get('id_user'));
+		$data['dua']=$model->getWhere('tb_rumah', $where);
+		$data['satu'] = $model->getWhere('tb_user', $where2);
 
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('e_drumah', $data);
 		echo view('footer');
 	
@@ -465,9 +496,11 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 			$model = new M_clean();  
 			$data['erwin']=$model->tampil('tb_kantor');
+			$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
         
         echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('data_kantor',$data);
         echo view('footer');
 	
@@ -480,8 +513,11 @@ class Home extends BaseController
 	{
 		if (session()->get('level')>0) {
 		$model = new M_clean();
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
+
 		echo view ('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('t_dkantor');
 		echo view('footer');
 	}else{
@@ -520,13 +556,14 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 		$model = new M_clean();
 		$where=array('id_kantor'=>$id);
-		
-		$data['satu']=$model->getWhere('tb_kantor', $where);
+		$where2 = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where2);
+		$data['dua']=$model->getWhere('tb_kantor', $where);
 
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('e_dkantor', $data);
 		echo view('footer');
 	
@@ -561,12 +598,14 @@ class Home extends BaseController
 		$model = new M_clean();
 		$where=array('id_kost');
 		
-		$data['satu']=$model->getWhere('tb_kost', $where);
+		$data['dua']=$model->getWhere('tb_kost', $where);
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
 
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('pembayaran', $data);
 		echo view('footer');
 	
@@ -637,13 +676,14 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 		$model = new M_clean();
 		$where=array('id_kantor');
-		
-		$data['satu']=$model->getWhere('tb_kantor', $where);
+		$where2 = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where2);
+		$data['dua']=$model->getWhere('tb_kantor', $where);
 
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('pembayaran_kantor', $data);
 		echo view('footer');
 	
@@ -714,13 +754,14 @@ class Home extends BaseController
 		if (session()->get('level')>0) {
 		$model = new M_clean();
 		$where=array('id_rumah');
-		
-		$data['satu']=$model->getWhere('tb_rumah', $where);
+		$where2 = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where2);
+		$data['dua']=$model->getWhere('tb_rumah', $where);
 
 		
 
 		echo view ('header');
-		echo view ('menu');
+		echo view ('menu', $data);
 		echo view('pembayaran_rumah', $data);
 		echo view('footer');
 	
@@ -803,8 +844,9 @@ class Home extends BaseController
 {
 	if(session()->get('level') > 0){
 		$model = new M_clean;
-		$where = array('id_user' => session()->get('id'));
-		$data['user'] = $model->getWhere('tb_user', $where);
+		$where = array('id_user' => session()->get('id_user'));
+		
+		$data['satu'] = $model->getWhere('tb_user', $where);
 
 		echo view('header');
 		echo view('menu',$data);
@@ -922,11 +964,12 @@ public function data_order(){
 		
     
     	$model = new M_clean();
-
+		$where = array('id_user' => session()->get('id_user'));
+		$data['satu'] = $model->getWhere('tb_user', $where);
 		$data['erwin']=$model->tampil('tb_order');
 	
 		echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('data_order',$data);
 		echo view('footer');
 
@@ -941,9 +984,11 @@ public function history_order(){
     	$model = new M_clean();
 		$id_user = session()->get('id_user');
 		$data['erwin']=$model->tampil_sesuai_join('tb_order', 'tb_user', 'tb_order.id_user=tb_user.id_user', $id_user);
+		$where = session()->get('id');
+		$data['satu'] = $model->getWhere('tb_user', $where);
 	
 		echo view('header');
-		echo view('menu');
+		echo view('menu', $data);
 		echo view('history_order',$data);
 		echo view('footer');
 

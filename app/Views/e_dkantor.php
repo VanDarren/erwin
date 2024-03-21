@@ -25,14 +25,14 @@
               <div class="mb-3 mt-3">
                                     <label for="inputText" class="formal-label">Durasi</label>
                                     <div class="col-sm-10">
-                                        <input type="time" class="form-control" value="<?= $satu->durasi?>" name="durasi">
+                                        <input type="time" class="form-control" value="<?= $dua->durasi?>" name="durasi">
                                     </div>
                                 </div>
 
                                 <div class="mb-3 mt-3">
                                     <label for="inputText" class="formal-label">Harga</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<?= $satu->harga?>" name="harga">
+                                        <input type="text" class="form-control" value="<?= $dua->harga?>" name="harga">
                                     </div>
                                 </div>
 
@@ -41,7 +41,7 @@
                   
                   <div class="row mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <input type="hidden" name="id" value="<?= $satu->id_kantor ?>">
+                    <input type="hidden" name="id" value="<?= $dua->id_kantor ?>">
                   </div>
                 </div>
 
