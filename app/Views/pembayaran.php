@@ -82,7 +82,7 @@
                  
                     <button type="submit" class="btn btn-primary">Submit</button>
                     
-                    <input type="hidden" name="id" value="<?= $satu->id_kost ?>">
+                    <input type="hidden" name="id" value="<?= $dua->id_kost ?>">
                   </div>
                 </div>
 

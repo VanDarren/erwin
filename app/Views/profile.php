@@ -53,7 +53,7 @@
       <div class="container pb-3 pt-3">
         <ul class="navbar-nav d-none d-lg-flex">
           <li class="nav-item border-radius-sm px-3 py-3 me-2 bg-slate-800 d-flex align-items-center">
-            <a href="<?=base_url('home/profile')?>" class="nav-link text-white p-0">
+            <a  href="<?= base_url('home/profile/'.$satu->id_user)?>" class="nav-link text-white p-0">
               Profile
             </a>
           </li>
@@ -77,7 +77,7 @@
       </div>
     </nav>
     <!-- End Sidenav Top -->
-    <div class="pt-7 pb-6 bg-cover" style="background-image: url('../assets/img/header-orange-purple.jpg'); background-position: bottom;">
+    <div class="pt-7 pb-6 bg-cover" style="background-image: url('<?= base_url('img/header-orange-purple.jpg') ?>'); background-position: bottom;">
   </div>
     <div class="container">
       <div class="card card-body py-2 bg-transparent shadow-none">
@@ -97,9 +97,17 @@
               </p>
             </div>
           </div>
-          <form action="<?= base_url('home/e_foto')?>" method="post" enctype="multipart/form-data" style="margin-top: 50px;">
-          <a href="<?= base_url('home/e_foto/'.$satu->id_user)?>" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="	fas fa-cloud-upload-alt"></i></a>
-          </form>
+          <form action="<?= base_url('home/aksi_ubah_foto')?>" method="post" enctype="multipart/form-data"><br>
+          <label for="img" >
+    <span style="background-color: #007bff; color: #fff; padding: 8px 12px; border-radius: 5px; cursor: pointer;">
+        <i class="fas fa-upload"></i> Pilih Foto Profil Baru
+    </span>
+    <input type="file" id="img" name="img" accept="image/*" style="display: none;">
+</label><br><br> 
+   <input type="submit" value="Simpan Perubahan" style="background-color: #007bff; color: #fff; padding: 8px 12px; border-radius: 5px; cursor: pointer; border:none;">
+  
+       
+        </form>
         </div>
       </div>
     </div>

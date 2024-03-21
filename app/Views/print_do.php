@@ -117,10 +117,10 @@ $imagePath = FCPATH. 'img/kop.jpeg';
         <tbody>
         <?php
 $total = 0; // Inisialisasi variabel total harga
-
+$no = 1;
 foreach ($wkwk as $key => $data) {
     $total += $data->total_harga; // Menambahkan total harga dari setiap data ke variabel total
-    $no = 1;
+   
     ?>
     <tr>
         <td><?= $no++ ?></td>

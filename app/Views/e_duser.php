@@ -25,28 +25,28 @@
               <div class="mb-3 mt-3">
                                     <label for="inputText" class="formal-label">Username</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<?= $satu->username?>" name="username">
+                                        <input type="text" class="form-control" value="<?= $dua->username?>" name="username">
                                     </div>
                                 </div>
 
                                 <div class="mb-3 mt-3">
                                     <label for="inputText" class="formal-label">Password</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<?= $satu->password?>" name="password">
+                                        <input type="text" class="form-control" value="<?= $dua->password?>" name="password">
                                     </div>
                                 </div>
 
                                 <div class="mb-3 mt-3">
                                     <label for="inputText" class="formal-label">Phone Number</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<?= $satu->no_hp?>" name="no_hp">
+                                        <input type="text" class="form-control" value="<?= $dua->no_hp?>" name="no_hp">
                                     </div>
                                 </div>
 
                                 <div class="mb-3 mt-3">
                                     <label for="inputText" class="formal-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<?= $satu->email?>" name="email">
+                                        <input type="text" class="form-control" value="<?= $dua->email?>" name="email">
                                     </div>
                                 </div>
 

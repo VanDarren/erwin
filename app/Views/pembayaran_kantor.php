@@ -80,7 +80,7 @@
                   
                   <div class="row mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <input type="hidden" name="id" value="<?= $satu->id_kantor ?>">
+                    <input type="hidden" name="id" value="<?= $dua->id_kantor ?>">
                   </div>
                 </div>
 
